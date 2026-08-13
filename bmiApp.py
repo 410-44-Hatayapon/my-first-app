@@ -1,4 +1,4 @@
-import stremlit as st
+import streamlit as s t
 
 #ส่วนที่ 1 หัวข้อหน้าเว็บ(Title สีแดง)
 st.markdown("# :red [🩺 คำนวณค่าดัชนีมวลกาย BMI]")
