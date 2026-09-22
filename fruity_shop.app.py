@@ -42,29 +42,12 @@ st.markdown("""
 # ข้อมูลผลไม้
 # =========================
 fruits = {
-"Watermelon": {
-"price": 50,
-"emoji": "🍉"},
-"Kiwi": {
-"price": 35,
-"emoji": "🥝"},
-"Strawberry": {
-"price": 30,
-"emoji": "🍓"
-},
-"Mango": {
-"price": 30,
-"emoji": "🥭"
-},
-"Blueberry": {
-"price": 35,
-"emoji": "🫐"
-},
-"Apple": {
-"price": 20,
-"emoji": "🍎"
-}
-}
+"Watermelon": {"price": 50,"emoji": "🍉"},
+"Kiwi": {"price": 35,"emoji": "🥝"},
+"Strawberry": {"price": 30,"emoji": "🍓"},
+"Mango": {"price": 30,"emoji": "🥭"},
+"Blueberry": {"price": 35,"emoji": "🫐"},
+"Apple": {"price": 20,"emoji": "🍎"}}
 
 
 # =========================
@@ -72,16 +55,13 @@ fruits = {
 # =========================
 for fruit in fruits:
     if f"qty_{fruit}" not in st.session_state:
-st.session_state[f"qty_{fruit}"] = 0
+    st.session_state[f"qty_{fruit}"] = 0
 
 
 # =========================
 # ชื่อร้าน
 # =========================
-st.markdown(
-'<div class="shop-title">Fruity Shop</div>',
-unsafe_allow_html=True
-)
+st.markdown('<div class="shop-title">Fruity Shop</div>',unsafe_allow_html=True)
 
 
 # =========================
@@ -93,68 +73,30 @@ for index, (fruit, data) in enumerate(fruits.items()):
 
 with columns[index % 3]:
 
-st.markdown(
-'<div class="fruit-card">',
-unsafe_allow_html=True
-)
+st.markdown('<div class="fruit-card">',unsafe_allow_html=True)
 
 # รูปผลไม้
-st.markdown(
-f"""
-<div style="
-font-size:120px;
-text-align:center;
-height:145px;
-">
-{data["emoji"]}
-</div>
-""",
-unsafe_allow_html=True
-)
+st.markdown(f"""<div style="font-size:120px;text-align:center;height:145px;">
+{data["emoji"]}</div>""",unsafe_allow_html=True)
 
 # ชื่อ
-st.markdown(
-f'<div class="fruit-name">{fruit}</div>',
-unsafe_allow_html=True
-)
+st.markdown(f'<div class="fruit-name">{fruit}</div>',unsafe_allow_html=True)
 
 # ราคา
-st.markdown(
-f'<div class="fruit-price">{data["price"]} baht/kg</div>',
-unsafe_allow_html=True
-)
+st.markdown(f'<div class="fruit-price">{data["price"]} baht/kg</div>',unsafe_allow_html=True)
 
 # ปุ่ม - จำนวน +
 c1, c2, c3 = st.columns([1, 1, 1])
 
 with c1:
-  if st.button(
-"-",
-key=f"minus_{fruit}",
-use_container_width=True
-):
-if st.session_state[f"qty_{fruit}"] > 0:
-st.session_state[f"qty_{fruit}"] -= 1
-st.rerun()
+     if st.button("-",key=f"minus_{fruit}",use_container_width=True):
+     if st.session_state[f"qty_{fruit}"] > 0:st.session_state[f"qty_{fruit}"] -= 1st.rerun()
 
 with c2:
-st.markdown(
-f"""
-<div class="count-box">
-{st.session_state[f"qty_{fruit}"]}
-</div>
-""",
-unsafe_allow_html=True
-)
+st.markdown(f"""<div class="count-box">{st.session_state[f"qty_{fruit}"]}</div>""",unsafe_allow_html=True)
 
 with c3:
-if st.button(
-"+",
-key=f"plus_{fruit}",
-use_container_width=True
-):
-st.session_state[f"qty_{fruit}"] += 1
-st.rerun()
+     if st.button("+",key=f"plus_{fruit}",use_container_width=True)st.session_state[f"qty_{fruit}"] += 1st.rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -169,40 +111,28 @@ st.divider()
 cart = []
 subtotal = 0
 
-for fruit, data in fruits.items():
+     for fruit, data in fruits.items():
 
 quantity = st.session_state[f"qty_{fruit}"]
 
-if quantity > 0:
+     if quantity > 0:
 
 normal_price = quantity * data["price"]
 
 # โปรผลไม้ราคา 35 บาท
 # ครบ 3 kg = 100 บาท
-if data["price"] == 35 and quantity >= 3:
+     if data["price"] == 35 and quantity >= 3:
 
 groups = quantity // 3
 remainder = quantity % 3
 
-product_price = (
-groups * 100
-+ remainder * 35
-)
-
+product_price = (groups * 100+ remainder * 35)
 promotion_text = "โปร 3 kg = 100 บาท"
 
-else:
-
-product_price = normal_price
+     else:product_price = normal_price
 promotion_text = ""
 
-cart.append({
-"name": fruit,
-"quantity": quantity,
-"price": product_price,
-"normal_price": normal_price,
-"promotion": promotion_text
-})
+cart.append({"name": fruit,"quantity": quantity,"price": product_price,"normal_price": normal_price,"promotion": promotion_text})
 
 subtotal += product_price
 
@@ -220,11 +150,8 @@ left, right = st.columns([1.25, 1])
 
 with left:
 
-st.markdown(
-"""
-<div class="info-box">
-<div class="info-title">
-ส่วนลดของร้านค้า
+st.markdown("""<div class="info-box">
+<div class="info-title">ส่วนลดของร้านค้า
 </div>
 
 <br>
@@ -234,14 +161,7 @@ st.markdown(
 
 <br><br>
 
-• เมื่อซื้อสินค้าราคา <b>35 บาท/kg</b>
-ครบ <b>3 kg</b>
-จากเดิม 105 บาท เหลือ <b>100 บาท</b>
-</div>
-""",
-unsafe_allow_html=True
-)
-
+• เมื่อซื้อสินค้าราคา <b>35 บาท/kg</b>ครบ <b>3 kg</b>จากเดิม 105 บาท เหลือ <b>100 บาท</b></div>""",unsafe_allow_html=True)
 
 # ============================================================
 # กล่องขวา : ตะกร้าสินค้า
@@ -249,50 +169,32 @@ unsafe_allow_html=True
 
 with right:
 
-st.markdown(
-"""
-<div class="info-box">
-<div class="info-title">
-ตะกร้าสินค้า
+st.markdown("""<div class="info-box">
+<div class="info-title">ตะกร้าสินค้า
 </div>
-""",
-unsafe_allow_html=True
-)
+""",unsafe_allow_html=True)
 
-if len(cart) == 0:
+    if len(cart) == 0:
 
 st.write("ยังไม่มีสินค้าในตะกร้า")
 
 else:
 
-for item in cart:
+     for item in cart:
 
 st.markdown(
-f"""
-<div class="cart-item">
-{item["quantity"]} &nbsp;
-{item["name"]} &nbsp;
-{item["price"]} บาท
-</div>
-""",
-unsafe_allow_html=True
-)
-
-st.markdown("</div>", unsafe_allow_html=True)
+f"""<div class="cart-item">{item["quantity"]} &nbsp;{item["name"]} &nbsp;{item["price"]} บาท</div>""",unsafe_allow_html=True)st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ============================================================
 # คำนวณส่วนลด
 # ============================================================
 
-if subtotal >= 150:
+     if subtotal >= 150:
 
-discount = subtotal * 0.05
-discount_text = (
-f"ส่วนลด 5% = {discount:.2f} บาท"
-)
+discount = subtotal * 0.05discount_text = (f"ส่วนลด 5% = {discount:.2f} บาท")
 
-else:
+     else:
 
 discount = 0
 discount_text = "ยังไม่ได้รับส่วนลด 5%"
@@ -318,11 +220,9 @@ left2, right2 = st.columns([1.25, 1])
 
 with right2:
 
-st.markdown(
-f"""
-<div class="info-box">
-
+st.markdown(f"""<div class="info-box">
 <div class="info-title">
+
 ส่วนลด
 </div>
 
@@ -334,11 +234,7 @@ f"""
 
 ราคาหลังหักส่วนลด:
 <b>{price_after_discount:.2f} บาท</b>
-
-</div>
-""",
-unsafe_allow_html=True
-)
+</div>""",unsafe_allow_html=True)
 
 
 # ============================================================
@@ -350,8 +246,8 @@ with right2:
 st.markdown(
 f"""
 <div class="info-box">
-
 <div class="info-title">
+
 VAT 7%
 </div>
 
@@ -371,11 +267,10 @@ unsafe_allow_html=True
 
 with right2:
 
-st.markdown(
-f"""
-<div class="info-box">
+st.markdown(f"""<div class="info-box">
 
 <div class="info-title">
+
 ราคาสุทธิ
 </div>
 
@@ -386,6 +281,4 @@ f"""
 </div>
 
 </div>
-""",
-unsafe_allow_html=True
-)
+""",unsafe_allow_html=True)
