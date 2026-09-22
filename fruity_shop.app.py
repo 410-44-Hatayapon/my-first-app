@@ -71,7 +71,7 @@ fruits = {
 # สร้างตัวแปรจำนวนสินค้า
 # =========================
 for fruit in fruits:
-if f"qty_{fruit}" not in st.session_state:
+    if f"qty_{fruit}" not in st.session_state:
 st.session_state[f"qty_{fruit}"] = 0
 
 
@@ -128,7 +128,7 @@ unsafe_allow_html=True
 c1, c2, c3 = st.columns([1, 1, 1])
 
 with c1:
-if st.button(
+  if st.button(
 "-",
 key=f"minus_{fruit}",
 use_container_width=True
