@@ -201,12 +201,10 @@ f"""<div class="cart-item">{item["quantity"]} &nbsp;{item["name"]} &nbsp;{item["
 # คำนวณส่วนลด
 # ============================================================
 
-     if subtotal >= 150:
-
-discount = subtotal * 0.05discount_text = (f"ส่วนลด 5% = {discount:.2f} บาท")
-
-     else:
-
+if subtotal >= 150:
+discount = subtotal * 0.05
+discount_text = f"ส่วนลด 5% = {discount:.2f} บาท"
+else:
 discount = 0
 discount_text = "ยังไม่ได้รับส่วนลด 5%"
 
