@@ -70,48 +70,48 @@ columns = st.columns(3)
 
 for index, (fruit, data) in enumerate(fruits.items()):
 
-with columns[index % 3]:
+    with columns[index % 3]:
 
-st.markdown('<div class="fruit-card">',unsafe_allow_html=True)
+    st.markdown('<div class="fruit-card">',unsafe_allow_html=True)
 
-# รูปผลไม้
-st.markdown(f"""<div style="font-size:120px;text-align:center;height:145px;">
-{data["emoji"]}</div>""",unsafe_allow_html=True)
+   # รูปผลไม้
+   st.markdown(f"""<div style="font-size:120px;text-align:center;height:145px;">
+   {data["emoji"]}</div>""",unsafe_allow_html=True)
 
-# ชื่อ
-st.markdown(f'<div class="fruit-name">{fruit}</div>',unsafe_allow_html=True)
+   # ชื่อ
+   st.markdown(f'<div class="fruit-name">{fruit}</div>',unsafe_allow_html=True)
 
-# ราคา
-st.markdown(f'<div class="fruit-price">{data["price"]} baht/kg</div>',unsafe_allow_html=True)
+   # ราคา
+   st.markdown(f'<div class="fruit-price">{data["price"]} baht/kg</div>',unsafe_allow_html=True)
 
-# ปุ่ม - จำนวน +
-c1, c2, c3 = st.columns([1, 1, 1])
+   # ปุ่ม - จำนวน +
+   c1, c2, c3 = st.columns([1, 1, 1])
 
-with c1:
- # ปุ่ม - จำนวน +
-c1, c2, c3 = st.columns([1, 1, 1])
+   with c1:
+    # ปุ่ม - จำนวน +
+   c1, c2, c3 = st.columns([1, 1, 1])
 
-with c1:
-if st.button("-", key=f"minus_{fruit}", use_container_width=True):
-if st.session_state[f"qty_{fruit}"] > 0:
-st.session_state[f"qty_{fruit}"] -= 1
-st.rerun()
+   with c1:
+   if st.button("-", key=f"minus_{fruit}", use_container_width=True):
+   if st.session_state[f"qty_{fruit}"] > 0:
+   st.session_state[f"qty_{fruit}"] -= 1
+   st.rerun()
 
-with c2:
-st.markdown(
-f'<div class="count-box">{st.session_state[f"qty_{fruit}"]}</div>',
-unsafe_allow_html=True
-)
+   with c2:
+   st.markdown(
+   f'<div class="count-box">{st.session_state[f"qty_{fruit}"]}</div>',
+   unsafe_allow_html=True
+   )
 
-with c3:
-if st.button("+", key=f"plus_{fruit}", use_container_width=True):
-st.session_state[f"qty_{fruit}"] += 1
-st.rerun()
+   with c3:
+   if st.button("+", key=f"plus_{fruit}", use_container_width=True):
+      st.session_state[f"qty_{fruit}"] += 1
+      st.rerun()
 
-st.markdown('</div>', unsafe_allow_html=True)
+      st.markdown('</div>', unsafe_allow_html=True)
 
 
-st.divider()
+    st.divider()
 
 
 # ============================================================
