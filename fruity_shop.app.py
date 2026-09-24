@@ -55,7 +55,7 @@ fruits = {
 # สร้างตัวแปรจำนวนสินค้า
 for fruit in fruits:
     if f"qty_{fruit}" not in st.session_state:
-        st.session_state[f"qty_{fruit}"] = 0
+        st.session_state[f"qty_{fruit}"]=0
 
 # =========================
 # ชื่อร้าน
@@ -69,7 +69,7 @@ st.markdown('<div class="shop-title">Fruity Shop</div>',unsafe_allow_html=True)
 columns = st.columns(3)
 
 for index, (fruit, data) in enumerate(fruits.items()):
-
+    
     with columns[index % 3]:
 
     st.markdown('<div class="fruit-card">',unsafe_allow_html=True)
