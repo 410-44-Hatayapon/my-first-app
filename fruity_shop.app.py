@@ -53,8 +53,8 @@ fruits = {
 # =========================
 # สร้างตัวแปรจำนวนสินค้า
 # สร้างตัวแปรจำนวนสินค้า
- for fruit in fruits:
-     if f"qty_{fruit}" not in st.session_state:
+for fruit in fruits:
+    if f"qty_{fruit}" not in st.session_state:
         st.session_state[f"qty_{fruit}"] = 0
 
 # =========================
