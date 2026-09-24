@@ -83,11 +83,11 @@ for index, (fruit, data) in enumerate(fruits.items()):
          st.markdown(f'<div class="fruit-price">{data["price"]} baht/kg</div>',unsafe_allow_html=True)
 
    # ปุ่ม - จำนวน +
-   c1, c2, c3 = st.columns([1, 1, 1])
+c1, c2, c3 = st.columns([1, 1, 1])
 
     with c1:
     # ปุ่ม - จำนวน +
-   c1, c2, c3 = st.columns([1, 1, 1])
+c1, c2, c3 = st.columns([1, 1, 1])
 
      with c1:
          if st.button("-", key=f"minus_{fruit}", use_container_width=True):
