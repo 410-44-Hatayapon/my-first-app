@@ -2,8 +2,9 @@ import streamlit as st
 
 
 # ============================================================
-# ตั้งค่าหน้าเว็บ
+# 1. ตั้งค่าหน้าเว็บ
 # ============================================================
+
 st.set_page_config(
     page_title="Fruity Shop",
     page_icon="🍉",
@@ -12,66 +13,91 @@ st.set_page_config(
 
 
 # ============================================================
-# CSS ตกแต่ง
+# 2. CSS ตกแต่งเว็บไซต์
 # ============================================================
+
 st.markdown(
     """
     <style>
-        .main {
-            background-color: white;
-        }
 
-        .shop-title {
-            font-size: 65px;
-            font-weight: 900;
-            margin-bottom: 20px;
-        }
+    .main {
+        background-color: white;
+    }
 
-        .fruit-card {
-            text-align: center;
-            padding: 10px;
-        }
+    .shop-title {
+        font-size: 65px;
+        font-weight: 900;
+        margin-bottom: 20px;
+    }
 
-        .fruit-name {
-            font-size: 24px;
-            font-weight: bold;
-        }
+    .fruit-card {
+        text-align: center;
+        padding: 10px;
+    }
 
-        .fruit-price {
-            font-size: 19px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+    .fruit-name {
+        font-size: 24px;
+        font-weight: bold;
+    }
 
-        .count-box {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            padding-top: 5px;
-        }
+    .fruit-price {
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
 
-        .info-box {
-            border: 2px solid #555;
-            padding: 18px;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            background-color: white;
-        }
+    .count-box {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        padding-top: 5px;
+    }
 
-        .info-title {
-            font-size: 25px;
-            font-weight: bold;
-        }
+    .info-box {
+        border: 2px solid #555;
+        border-radius: 10px;
+        padding: 18px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: white;
+    }
 
-        .cart-item {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
+    .info-title {
+        font-size: 25px;
+        font-weight: bold;
+    }
 
-        .total-price {
-            font-size: 30px;
-            font-weight: bold;
-        }
+    .cart-item {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .total-price {
+        font-size: 30px;
+        font-weight: bold;
+        color: #e65100;
+    }
+
+    .success-box {
+        background-color: #e8f5e9;
+        border: 2px solid #4caf50;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    .success-title {
+        font-size: 30px;
+        font-weight: bold;
+        color: #2e7d32;
+    }
+
+    .success-text {
+        font-size: 20px;
+    }
+
     </style>
     """,
     unsafe_allow_html=True
@@ -79,29 +105,35 @@ st.markdown(
 
 
 # ============================================================
-# ข้อมูลผลไม้
+# 3. ข้อมูลผลไม้
 # ============================================================
+
 fruits = {
     "Watermelon": {
         "price": 50,
         "emoji": "🍉"
     },
+
     "Kiwi": {
         "price": 35,
         "emoji": "🥝"
     },
+
     "Strawberry": {
         "price": 30,
         "emoji": "🍓"
     },
+
     "Mango": {
         "price": 30,
         "emoji": "🥭"
     },
+
     "Blueberry": {
         "price": 35,
         "emoji": "🫐"
     },
+
     "Apple": {
         "price": 20,
         "emoji": "🍎"
@@ -110,16 +142,27 @@ fruits = {
 
 
 # ============================================================
-# สร้างตัวแปรจำนวนสินค้าใน Session State
+# 4. สร้าง Session State
 # ============================================================
+
+# จำนวนผลไม้แต่ละชนิด
 for fruit in fruits:
+
     if f"qty_{fruit}" not in st.session_state:
+
         st.session_state[f"qty_{fruit}"] = 0
 
 
+# สถานะการซื้อ
+if "purchase_completed" not in st.session_state:
+
+    st.session_state.purchase_completed = False
+
+
 # ============================================================
-# ชื่อร้าน
+# 5. ชื่อร้าน
 # ============================================================
+
 st.markdown(
     '<div class="shop-title">Fruity Shop 🍉</div>',
     unsafe_allow_html=True
@@ -127,9 +170,11 @@ st.markdown(
 
 
 # ============================================================
-# แสดงผลไม้ 6 ชนิด
+# 6. แสดงผลไม้
 # ============================================================
+
 columns = st.columns(3)
+
 
 for index, (fruit, data) in enumerate(fruits.items()):
 
@@ -140,7 +185,10 @@ for index, (fruit, data) in enumerate(fruits.items()):
             unsafe_allow_html=True
         )
 
+        # ----------------------------------------------------
         # รูปผลไม้
+        # ----------------------------------------------------
+
         st.markdown(
             f"""
             <div style="
@@ -154,34 +202,56 @@ for index, (fruit, data) in enumerate(fruits.items()):
             unsafe_allow_html=True
         )
 
+        # ----------------------------------------------------
         # ชื่อผลไม้
+        # ----------------------------------------------------
+
         st.markdown(
-            f'<div class="fruit-name">{fruit}</div>',
+            f"""
+            <div class="fruit-name">
+                {fruit}
+            </div>
+            """,
             unsafe_allow_html=True
         )
 
+        # ----------------------------------------------------
         # ราคา
+        # ----------------------------------------------------
+
         st.markdown(
-            f'<div class="fruit-price">{data["price"]} baht/kg</div>',
+            f"""
+            <div class="fruit-price">
+                {data["price"]} baht/kg
+            </div>
+            """,
             unsafe_allow_html=True
         )
 
-        # ปุ่มลด / จำนวน / เพิ่ม
-        c1, c2, c3 = st.columns([1, 1, 1])
+        # ----------------------------------------------------
+        # ปุ่ม - จำนวน +
+        # ----------------------------------------------------
 
-        # ปุ่ม -
+        c1, c2, c3 = st.columns(3)
+
+        # ปุ่มลดจำนวน
         with c1:
+
             if st.button(
                 "-",
                 key=f"minus_{fruit}",
                 use_container_width=True
             ):
+
                 if st.session_state[f"qty_{fruit}"] > 0:
+
                     st.session_state[f"qty_{fruit}"] -= 1
+
                     st.rerun()
 
         # แสดงจำนวน
         with c2:
+
             st.markdown(
                 f"""
                 <div class="count-box">
@@ -191,48 +261,58 @@ for index, (fruit, data) in enumerate(fruits.items()):
                 unsafe_allow_html=True
             )
 
-        # ปุ่ม +
+        # ปุ่มเพิ่มจำนวน
         with c3:
+
             if st.button(
                 "+",
                 key=f"plus_{fruit}",
                 use_container_width=True
             ):
+
                 st.session_state[f"qty_{fruit}"] += 1
+
                 st.rerun()
 
         st.markdown(
-            '</div>',
+            "</div>",
             unsafe_allow_html=True
         )
 
-    # เส้นแบ่งหลังผลไม้แถวที่ 3
-    if index == 2:
-        st.divider()
-
 
 # ============================================================
-# คำนวณราคาสินค้าในตะกร้า
+# 7. คำนวณตะกร้าสินค้า
 # ============================================================
+
 cart = []
+
 subtotal = 0
+
 
 for fruit, data in fruits.items():
 
     quantity = st.session_state[f"qty_{fruit}"]
+
+    # --------------------------------------------------------
+    # ถ้ามีสินค้า
+    # --------------------------------------------------------
 
     if quantity > 0:
 
         # ราคาปกติ
         normal_price = quantity * data["price"]
 
-        # ====================================================
-        # โปรโมชั่นผลไม้ราคา 35 บาท
-        # ซื้อครบ 3 kg = 100 บาท
-        # ====================================================
+        # ----------------------------------------------------
+        # โปรโมชั่น
+        #
+        # ผลไม้ราคา 35 บาท
+        # ซื้อ 3 kg = 100 บาท
+        # ----------------------------------------------------
+
         if data["price"] == 35 and quantity >= 3:
 
             groups = quantity // 3
+
             remainder = quantity % 3
 
             product_price = (
@@ -245,9 +325,13 @@ for fruit, data in fruits.items():
         else:
 
             product_price = normal_price
+
             promotion_text = ""
 
+        # ----------------------------------------------------
         # เพิ่มสินค้าเข้าตะกร้า
+        # ----------------------------------------------------
+
         cart.append(
             {
                 "name": fruit,
@@ -262,42 +346,56 @@ for fruit, data in fruits.items():
 
 
 # ============================================================
-# คำนวณส่วนลด 5%
+# 8. คำนวณส่วนลด
 # ============================================================
+
 if subtotal >= 150:
 
     discount = subtotal * 0.05
-    discount_text = f"ส่วนลด 5% = {discount:.2f} บาท"
+
+    discount_text = (
+        f"ส่วนลด 5% = {discount:.2f} บาท"
+    )
 
 else:
 
     discount = 0
+
     discount_text = "ยังไม่ได้รับส่วนลด 5%"
 
 
 # ============================================================
-# ราคาหลังหักส่วนลด
+# 9. คำนวณราคาหลังหักส่วนลด
 # ============================================================
+
 price_after_discount = subtotal - discount
 
 
 # ============================================================
-# VAT 7%
+# 10. คำนวณ VAT 7%
 # ============================================================
+
 vat = price_after_discount * 0.07
+
+
+# ============================================================
+# 11. ราคาสุทธิ
+# ============================================================
 
 net_price = price_after_discount + vat
 
 
 # ============================================================
-# ส่วนล่างของเว็บไซต์
+# 12. ส่วนแสดงข้อมูลร้านค้าและตะกร้า
 # ============================================================
+
 left, right = st.columns([1.25, 1])
 
 
 # ============================================================
-# กล่องซ้าย : ส่วนลดของร้านค้า
+# 13. กล่องโปรโมชั่นร้านค้า
 # ============================================================
+
 with left:
 
     st.markdown(
@@ -305,19 +403,28 @@ with left:
         <div class="info-box">
 
             <div class="info-title">
-                ส่วนลดของร้านค้า
+                🎁 ส่วนลดของร้านค้า
             </div>
 
             <br>
 
-            • เมื่อซื้อสินค้าครบ <b>150 บาท</b>
-            จะได้รับส่วนลด <b>5%</b>
+            • เมื่อซื้อสินค้าครบ
+            <b>150 บาท</b>
+            จะได้รับส่วนลด
+            <b>5%</b>
 
             <br><br>
 
-            • เมื่อซื้อสินค้าราคา <b>35 บาท/kg</b>
-            ครบ <b>3 kg</b>
-            จากเดิม 105 บาท เหลือ <b>100 บาท</b>
+            • ผลไม้ราคา
+            <b>35 บาท/kg</b>
+            ซื้อครบ
+            <b>3 kg</b>
+
+            <br>
+
+            จากเดิม 105 บาท
+            เหลือ
+            <b>100 บาท</b>
 
         </div>
         """,
@@ -326,8 +433,9 @@ with left:
 
 
 # ============================================================
-# กล่องขวา : ตะกร้าสินค้า
+# 14. ตะกร้าสินค้า
 # ============================================================
+
 with right:
 
     st.markdown(
@@ -343,32 +451,43 @@ with right:
         unsafe_allow_html=True
     )
 
+    # --------------------------------------------------------
+    # ไม่มีสินค้า
+    # --------------------------------------------------------
+
     if len(cart) == 0:
 
         st.write("ยังไม่มีสินค้าในตะกร้า")
+
+    # --------------------------------------------------------
+    # มีสินค้า
+    # --------------------------------------------------------
 
     else:
 
         for item in cart:
 
-            promotion = ""
-
-            if item["promotion"]:
-                promotion = (
-                    f'<br><small>🏷️ {item["promotion"]}</small>'
-                )
-
             st.markdown(
                 f"""
                 <div class="cart-item">
+
                     {item["quantity"]} kg
-                    &nbsp; {item["name"]}
-                    &nbsp; {item["price"]:.2f} บาท
-                    {promotion}
+                    &nbsp;
+                    <b>{item["name"]}</b>
+                    &nbsp;
+                    {item["price"]:.2f} บาท
+
                 </div>
                 """,
                 unsafe_allow_html=True
             )
+
+            # แสดงโปรโมชั่น
+            if item["promotion"]:
+
+                st.caption(
+                    f"🏷️ {item['promotion']}"
+                )
 
     st.markdown(
         "</div>",
@@ -377,14 +496,12 @@ with right:
 
 
 # ============================================================
-# แสดงผลส่วนลด / VAT / ราคาสุทธิ
+# 15. กล่องส่วนลด
 # ============================================================
+
 left2, right2 = st.columns([1.25, 1])
 
 
-# ============================================================
-# กล่องส่วนลด
-# ============================================================
 with right2:
 
     st.markdown(
@@ -392,7 +509,7 @@ with right2:
         <div class="info-box">
 
             <div class="info-title">
-                ส่วนลด
+                💸 ส่วนลด
             </div>
 
             <br>
@@ -402,7 +519,10 @@ with right2:
             <br><br>
 
             ราคาหลังหักส่วนลด:
-            <b>{price_after_discount:.2f} บาท</b>
+
+            <b>
+                {price_after_discount:.2f} บาท
+            </b>
 
         </div>
         """,
@@ -411,8 +531,9 @@ with right2:
 
 
 # ============================================================
-# กล่อง VAT
+# 16. กล่อง VAT
 # ============================================================
+
 with right2:
 
     st.markdown(
@@ -425,7 +546,8 @@ with right2:
 
             <br>
 
-            VAT = {vat:.2f} บาท
+            VAT =
+            <b>{vat:.2f} บาท</b>
 
         </div>
         """,
@@ -434,8 +556,9 @@ with right2:
 
 
 # ============================================================
-# กล่องราคาสุทธิ
+# 17. กล่องราคาสุทธิ
 # ============================================================
+
 with right2:
 
     st.markdown(
@@ -443,7 +566,7 @@ with right2:
         <div class="info-box">
 
             <div class="info-title">
-                ราคาสุทธิ
+                💰 ราคาสุทธิ
             </div>
 
             <br>
@@ -457,108 +580,15 @@ with right2:
         unsafe_allow_html=True
     )
 
-        # รีเฟรช
-        st.rerun()
+
 # ============================================================
-# ปุ่มยืนยันการซื้อ
+# 18. ยืนยันการซื้อ
 # ============================================================
+
 st.divider()
 
-st.markdown(
-    """
-    <div style="
-        text-align: center;
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 15px;
-    ">
-        🛒 ยืนยันการสั่งซื้อ
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# ปุ่มยืนยันการซื้อ
-if st.button(
-    "✅ ยืนยันการซื้อ",
-    use_container_width=True,
-    type="primary"
-):
-
-    # ตรวจสอบว่ามีสินค้าในตะกร้าหรือไม่
-    if len(cart) == 0:
-
-        st.warning("⚠️ กรุณาเลือกสินค้าก่อนทำการซื้อ")
-
-    else:
-
-        st.success("🎉 ยืนยันการซื้อเรียบร้อยแล้ว!")
-
-        st.markdown(
-            """
-            ### 🧾 รายละเอียดการสั่งซื้อ
-            """,
-        )
-
-        # แสดงรายการสินค้า
-        for item in cart:
-
-            st.write(
-                f"🍎 **{item['name']}** "
-                f"{item['quantity']} kg "
-                f"= {item['price']:.2f} บาท"
-            )
-
-        st.divider()
-
-        # สรุปราคา
-        st.write(f"**ราคาสินค้ารวม:** {subtotal:.2f} บาท")
-        st.write(f"**ส่วนลด:** {discount:.2f} บาท")
-        st.write(f"**VAT 7%:** {vat:.2f} บาท")
-
-        st.markdown(
-            f"""
-            <div style="
-                background-color: #e8f5e9;
-                border: 2px solid #4caf50;
-                border-radius: 10px;
-                padding: 15px;
-                text-align: center;
-                margin-top: 15px;
-            ">
-                <div style="
-                    font-size: 22px;
-                    font-weight: bold;
-                ">
-                    💰 ราคาสุทธิ
-                </div>
-
-                <div style="
-                    font-size: 35px;
-                    font-weight: bold;
-                    color: #2e7d32;
-                ">
-                    {net_price:.2f} บาท
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-# ============================================================
-# สถานะการซื้อ
-# ============================================================
-
-if "purchase_completed" not in st.session_state:
-    st.session_state.purchase_completed = False
-
-
-# ============================================================
-# ก่อนซื้อ
-# ============================================================
 
 if not st.session_state.purchase_completed:
-
-    st.divider()
 
     st.markdown(
         """
@@ -574,7 +604,12 @@ if not st.session_state.purchase_completed:
         unsafe_allow_html=True
     )
 
-    # ใช้ key เพื่อป้องกันปุ่มซ้ำ
+    # --------------------------------------------------------
+    # ปุ่มยืนยันการซื้อ
+    #
+    # มี key เฉพาะ ป้องกัน DuplicateElementId
+    # --------------------------------------------------------
+
     if st.button(
         "✅ ยืนยันการซื้อ",
         key="confirm_purchase",
@@ -582,49 +617,38 @@ if not st.session_state.purchase_completed:
         type="primary"
     ):
 
+        # ตรวจสอบว่ามีสินค้า
         if len(cart) == 0:
 
-            st.warning("⚠️ กรุณาเลือกสินค้าก่อนทำการซื้อ")
+            st.warning(
+                "⚠️ กรุณาเลือกสินค้าก่อนทำการซื้อ"
+            )
 
         else:
 
+            # เปลี่ยนสถานะเป็นซื้อเสร็จ
             st.session_state.purchase_completed = True
 
             st.rerun()
 
 
 # ============================================================
-# หลังซื้อเสร็จ
+# 19. หลังจากซื้อเสร็จ
 # ============================================================
 
 else:
 
-    st.divider()
-
-    st.success("🎉 ซื้อสินค้าเรียบร้อยแล้ว!")
-
     st.markdown(
         """
-        <div style="
-            background-color: #e8f5e9;
-            border: 2px solid #4caf50;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        ">
+        <div class="success-box">
 
-            <div style="
-                font-size: 30px;
-                font-weight: bold;
-                color: #2e7d32;
-            ">
-                🧾 การสั่งซื้อสำเร็จ
+            <div class="success-title">
+                🎉 ซื้อสินค้าเรียบร้อยแล้ว!
             </div>
 
             <br>
 
-            <div style="font-size: 20px;">
+            <div class="success-text">
                 ขอบคุณที่ใช้บริการ Fruity Shop 🍉
             </div>
 
@@ -635,10 +659,11 @@ else:
 
 
     # ========================================================
-    # รายการสินค้าที่ซื้อ
+    # 20. ใบสรุปรายการซื้อ
     # ========================================================
 
     st.markdown("### 🧾 รายการที่ซื้อ")
+
 
     for item in cart:
 
@@ -653,24 +678,27 @@ else:
 
 
     # ========================================================
-    # สรุปราคา
+    # 21. สรุปราคา
     # ========================================================
 
     st.write(
-        f"**ราคาสินค้า:** {subtotal:.2f} บาท"
+        f"**ราคาสินค้ารวม:** "
+        f"{subtotal:.2f} บาท"
     )
 
     st.write(
-        f"**ส่วนลด:** -{discount:.2f} บาท"
+        f"**ส่วนลด:** "
+        f"-{discount:.2f} บาท"
     )
 
     st.write(
-        f"**VAT 7%:** {vat:.2f} บาท"
+        f"**VAT 7%:** "
+        f"{vat:.2f} บาท"
     )
 
 
     # ========================================================
-    # ราคาสุทธิ
+    # 22. แสดงราคาสุทธิหลังซื้อ
     # ========================================================
 
     st.markdown(
@@ -707,7 +735,7 @@ else:
 
 
     # ========================================================
-    # ซื้อตะกร้าถัดไป
+    # 23. ปุ่มซื้อตะกร้าถัดไป
     # ========================================================
 
     if st.button(
@@ -717,12 +745,24 @@ else:
         type="primary"
     ):
 
+        # ----------------------------------------------------
         # ล้างจำนวนสินค้าทั้งหมด
+        # ----------------------------------------------------
+
         for fruit in fruits:
+
             st.session_state[f"qty_{fruit}"] = 0
 
-        # กลับไปหน้าซื้อสินค้า
+
+        # ----------------------------------------------------
+        # กลับสู่สถานะพร้อมซื้อ
+        # ----------------------------------------------------
+
         st.session_state.purchase_completed = False
 
-        # รีเฟรช
+
+        # ----------------------------------------------------
+        # รีเฟรชหน้า
+        # ----------------------------------------------------
+
         st.rerun()
