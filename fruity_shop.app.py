@@ -456,3 +456,88 @@ with right2:
         """,
         unsafe_allow_html=True
     )
+# ============================================================
+# ปุ่มยืนยันการซื้อ
+# ============================================================
+st.divider()
+
+st.markdown(
+    """
+    <div style="
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    ">
+        🛒 ยืนยันการสั่งซื้อ
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ปุ่มยืนยันการซื้อ
+if st.button(
+    "✅ ยืนยันการซื้อ",
+    use_container_width=True,
+    type="primary"
+):
+
+    # ตรวจสอบว่ามีสินค้าในตะกร้าหรือไม่
+    if len(cart) == 0:
+
+        st.warning("⚠️ กรุณาเลือกสินค้าก่อนทำการซื้อ")
+
+    else:
+
+        st.success("🎉 ยืนยันการซื้อเรียบร้อยแล้ว!")
+
+        st.markdown(
+            """
+            ### 🧾 รายละเอียดการสั่งซื้อ
+            """,
+        )
+
+        # แสดงรายการสินค้า
+        for item in cart:
+
+            st.write(
+                f"🍎 **{item['name']}** "
+                f"{item['quantity']} kg "
+                f"= {item['price']:.2f} บาท"
+            )
+
+        st.divider()
+
+        # สรุปราคา
+        st.write(f"**ราคาสินค้ารวม:** {subtotal:.2f} บาท")
+        st.write(f"**ส่วนลด:** {discount:.2f} บาท")
+        st.write(f"**VAT 7%:** {vat:.2f} บาท")
+
+        st.markdown(
+            f"""
+            <div style="
+                background-color: #e8f5e9;
+                border: 2px solid #4caf50;
+                border-radius: 10px;
+                padding: 15px;
+                text-align: center;
+                margin-top: 15px;
+            ">
+                <div style="
+                    font-size: 22px;
+                    font-weight: bold;
+                ">
+                    💰 ราคาสุทธิ
+                </div>
+
+                <div style="
+                    font-size: 35px;
+                    font-weight: bold;
+                    color: #2e7d32;
+                ">
+                    {net_price:.2f} บาท
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
