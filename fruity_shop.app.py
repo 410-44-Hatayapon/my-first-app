@@ -91,21 +91,21 @@ c1, c2, c3 = st.columns([1, 1, 1])
 
      with c1:
          if st.button("-", key=f"minus_{fruit}", use_container_width=True):
-         if st.session_state[f"qty_{fruit}"] > 0:
-            st.session_state[f"qty_{fruit}"] -= 1
-            st.rerun()
+            if st.session_state[f"qty_{fruit}"] > 0:
+                st.session_state[f"qty_{fruit}"] -= 1
+                st.rerun()
 
     with c2:
                 st.markdown(f'<div class="count-box">{st.session_state[f"qty_{fruit}"]}</div>',
    unsafe_allow_html=True)
 
    with c3:
-   if st.button("+", key=f"plus_{fruit}", use_container_width=True):
-      st.session_state[f"qty_{fruit}"] += 1
-      st.rerun()
+       if st.button("+", key=f"plus_{fruit}", use_container_width=True):
+           st.session_state[f"qty_{fruit}"] += 1
+           st.rerun()
 
-      st.markdown('</div>', unsafe_allow_html=True)
-      st.divider
+           st.markdown('</div>', unsafe_allow_html=True)
+           st.divider
 
 # ============================================================
 # คำนวณราคาสินค้า
